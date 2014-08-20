@@ -63,7 +63,7 @@ randomNumber = (max) ->
 randomColor = ->
   colors[randomNumber colors.length]
 
-beginTriangle = ({a, b, c, color}, fill = false) ->
+beginTriangle = ({a, b, c, color}) ->
   jupiter.fillStyle = color
   jupiter.beginPath()
   jupiter.moveTo a.x, a.y
