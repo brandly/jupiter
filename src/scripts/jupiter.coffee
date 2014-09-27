@@ -1,17 +1,24 @@
 el = document.getElementById 'jupiter'
-width = window.innerWidth
-height = window.innerHeight
 
-# make a square that fits centered onscreen
-if height > width
-  height = width
-else
-  width = height
+# Keep em on the higher scope so everything can use them
+width = null
+height = null
+do setCanvasSize = ->
+  width = window.innerWidth
+  height = window.innerHeight
 
-el.width = width
-el.height = height
-el.style.width = width
-el.style.height = height
+  # make a square that fits centered onscreen
+  if height > width
+    height = width
+  else
+    width = height
+
+  el.width = width
+  el.height = height
+  el.style.width = width
+  el.style.height = height
+
+window.addEventListener 'resize', setCanvasSize, false
 
 jupiter =  el.getContext '2d'
 jupiter.lineWidth = .7
@@ -87,10 +94,10 @@ drawPatch = (options) ->
   {a, b, c} = options
   triangleBorder {a, b, c, color: '#000'}
 
-triangleHeight  = height / 36
-midX = width / 2
-
 drawHalfJupiter = (side) ->
+  triangleHeight  = height / 36
+  midX = width / 2
+
   # `a` is the stationary point the entire side is "pointing" to.
   # `b` and `c` maintain a constant `x` coord, but each move their `y` by a
   # fixed factor of `triangleHeight`.
